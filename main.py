@@ -4,6 +4,13 @@ from inference import predict
 
 app = FastAPI(title="KYC Risk Scoring API")
 
+# -------------------------
+# Health Check (ADD HERE)
+# -------------------------
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
 class CustomerInput(BaseModel):
     AGE_YR_CT: float
     CUST_GNDR_CD: str
