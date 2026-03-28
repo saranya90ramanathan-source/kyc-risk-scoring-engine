@@ -1,8 +1,8 @@
 fastapi
 uvicorn
-torch
-lightgbm
 scikit-learn
 pandas
 numpy
 joblib
+lightgbm
+torch==2.2.0+cpu -f https://download.pytorch.org/whl/torch_stable.html
