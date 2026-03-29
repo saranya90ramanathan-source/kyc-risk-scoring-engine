@@ -5,12 +5,12 @@ import pandas as pd
 # -------------------------
 # Load artifacts
 # -------------------------
-lgbm = joblib.load("lgbm_model.pkl")
-encoders = joblib.load("encoders.pkl")
-num_imputer = joblib.load("num_imputer.pkl")
-scaler = joblib.load("scaler.pkl")
-training_columns = joblib.load("training_columns.pkl")
-label_encoder = joblib.load("label_encoder.pkl")
+lgbm = joblib.load("app/lgbm_model.pkl")
+encoders = joblib.load("app/encoders.pkl")
+num_imputer = joblib.load("app/num_imputer.pkl")
+scaler = joblib.load("app/scaler.pkl")
+training_columns = joblib.load("app/training_columns.pkl")
+label_encoder = joblib.load("app/label_encoder.pkl")
 
 # -------------------------
 # Preprocessing
