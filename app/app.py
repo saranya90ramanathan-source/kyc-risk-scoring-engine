@@ -9,6 +9,11 @@ st.set_page_config(page_title="KYC Risk Scoring", layout="wide")
 st.title("🏦 KYC Risk Scoring System")
 st.markdown("**Enter customer details below**")
 
+def label(text):
+    st.markdown(
+        f"<span style='font-size:18px; font-weight:bold;'>{text}</span>",
+        unsafe_allow_html=True
+    )
 # -------------------------
 # Create 2 columns
 # -------------------------
@@ -19,18 +24,22 @@ col1, col2 = st.columns(2)
 # -------------------------
 with col1:
     st.subheader("👤 Personal Details")
-
-    AGE_YR_CT = st.number_input("**Age**", 18, 100, 30)
-    CUST_GNDR_CD = st.selectbox("Gender", ["M", "F", "O"])
-    CUST_TYPE_CD = st.selectbox("Customer Type", ["IND", "CORP"])
-
-    CTZSHP_CNTRY1_CD = st.text_input("Citizenship Country 1", "IN")
-    COUNTRY_OF_INC = st.text_input("Country of Incorporation", "IN")
-
-    PEP_FL = st.selectbox("PEP Flag", ["Y", "N"])
-
-    OCPTN_NM = st.text_input("Occupation", "Engineer")
-    DPNDT_QT = st.number_input("Dependents", value=2)
+    label("Age")
+    AGE_YR_CT = st.number_input("", 18, 100, 30)
+    label("Gender")
+    CUST_GNDR_CD = st.selectbox("", ["M", "F", "O"])
+    label("Customer Type")
+    CUST_TYPE_CD = st.selectbox("", ["IND", "CORP"])
+    label("Citizenship Country 1")
+    CTZSHP_CNTRY1_CD = st.text_input("", "IN")
+    label("Country of Incorporation")
+    COUNTRY_OF_INC = st.text_input("", "IN")
+    label("PEP Flag")
+    PEP_FL = st.selectbox("", ["Y", "N"])
+    label("Occupation")
+    OCPTN_NM = st.text_input("", "Engineer")
+    label("Dependents")
+    DPNDT_QT = st.number_input("", value=2)
 
 
 # -------------------------
