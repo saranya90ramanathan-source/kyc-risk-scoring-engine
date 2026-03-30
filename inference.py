@@ -1,6 +1,10 @@
 import joblib
 import numpy as np
 import pandas as pd
+import torch
+import torch.nn as nn
+
+DEVICE = torch.device("cpu")
 
 # -------------------------
 # Load artifacts
@@ -85,7 +89,7 @@ class ImprovedFAN(nn.Module):
         return logits, w
 
 fan = ImprovedFAN(input_dim=len(training_columns))
-fan.load_state_dict(torch.load("fan_model.pt", map_location=DEVICE))
+fan.load_state_dict(torch.load("app/fan_model.pt", map_location=DEVICE))
 fan.eval()
 
 # -------------------------
