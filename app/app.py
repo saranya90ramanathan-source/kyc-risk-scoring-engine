@@ -7,7 +7,7 @@ from inference import predict
 st.set_page_config(page_title="KYC Risk Scoring", layout="wide")
 
 st.title("🏦 KYC Risk Scoring System")
-st.markdown("Enter customer details below")
+st.markdown("**Enter customer details below**")
 
 # -------------------------
 # Create 2 columns
@@ -20,7 +20,7 @@ col1, col2 = st.columns(2)
 with col1:
     st.subheader("👤 Personal Details")
 
-    AGE_YR_CT = st.number_input("Age", 18, 100, 30)
+    AGE_YR_CT = st.number_input("**Age**", 18, 100, 30)
     CUST_GNDR_CD = st.selectbox("Gender", ["M", "F", "O"])
     CUST_TYPE_CD = st.selectbox("Customer Type", ["IND", "CORP"])
 
