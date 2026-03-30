@@ -9,11 +9,15 @@ st.set_page_config(page_title="KYC Risk Scoring", layout="wide")
 st.title("🏦 KYC Risk Scoring System")
 st.markdown("**Enter customer details below**")
 
+# -------------------------
+# Label helper
+# -------------------------
 def label(text):
     st.markdown(
         f"<span style='font-size:18px; font-weight:bold;'>{text}</span>",
         unsafe_allow_html=True
     )
+
 # -------------------------
 # Create 2 columns
 # -------------------------
@@ -24,22 +28,30 @@ col1, col2 = st.columns(2)
 # -------------------------
 with col1:
     st.subheader("👤 Personal Details")
+
     label("Age")
-    AGE_YR_CT = st.number_input("", 18, 100, 30)
+    AGE_YR_CT = st.number_input("", 18, 100, 30, key="age")
+
     label("Gender")
-    CUST_GNDR_CD = st.selectbox("", ["M", "F", "O"])
+    CUST_GNDR_CD = st.selectbox("", ["M", "F", "O"], key="gender")
+
     label("Customer Type")
-    CUST_TYPE_CD = st.selectbox("", ["IND", "CORP"])
+    CUST_TYPE_CD = st.selectbox("", ["IND", "CORP"], key="cust_type")
+
     label("Citizenship Country 1")
-    CTZSHP_CNTRY1_CD = st.text_input("", "IN")
+    CTZSHP_CNTRY1_CD = st.text_input("", "IN", key="citizenship1")
+
     label("Country of Incorporation")
-    COUNTRY_OF_INC = st.text_input("", "IN")
+    COUNTRY_OF_INC = st.text_input("", "IN", key="country_inc")
+
     label("PEP Flag")
-    PEP_FL = st.selectbox("", ["Y", "N"])
+    PEP_FL = st.selectbox("", ["Y", "N"], key="pep")
+
     label("Occupation")
-    OCPTN_NM = st.text_input("", "Engineer")
+    OCPTN_NM = st.text_input("", "Engineer", key="occupation")
+
     label("Dependents")
-    DPNDT_QT = st.number_input("", value=2)
+    DPNDT_QT = st.number_input("", value=2, key="dependents")
 
 
 # -------------------------
@@ -48,16 +60,26 @@ with col1:
 with col2:
     st.subheader("💰 Financial & Risk Details")
 
-    CTZSHP_CNTRY2_CD = st.text_input("Citizenship Country 2", "IN")
-    RES_CNTRY_CD = st.text_input("Residence Country", "IN")
+    label("Citizenship Country 2")
+    CTZSHP_CNTRY2_CD = st.text_input("", "IN", key="citizenship2")
 
-    FRGN_ASSETS_FL = st.selectbox("Foreign Assets", ["Y", "N"])
+    label("Residence Country")
+    RES_CNTRY_CD = st.text_input("", "IN", key="res_country")
 
-    ANNL_INCM_BASE_AM = st.number_input("Annual Income", value=500000.0)
-    NET_WRTH_BASE_AM = st.number_input("Net Worth", value=1000000.0)
-    LQD_NET_WRTH_BASE_AM = st.number_input("Liquid Net Worth", value=500000.0)
+    label("Foreign Assets")
+    FRGN_ASSETS_FL = st.selectbox("", ["Y", "N"], key="foreign_assets")
 
-    WLTH_SRC_DSCR_TX = st.text_input("Wealth Source", "Salary")
+    label("Annual Income")
+    ANNL_INCM_BASE_AM = st.number_input("", value=500000.0, key="income")
+
+    label("Net Worth")
+    NET_WRTH_BASE_AM = st.number_input("", value=1000000.0, key="net_worth")
+
+    label("Liquid Net Worth")
+    LQD_NET_WRTH_BASE_AM = st.number_input("", value=500000.0, key="liquid_net_worth")
+
+    label("Wealth Source")
+    WLTH_SRC_DSCR_TX = st.text_input("", "Salary", key="wealth_source")
 
 
 # -------------------------
