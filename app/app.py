@@ -113,7 +113,7 @@ if run:
             f"<div class='card'><div class='metric'>Net Worth</div><h3>₹ {NET_WRTH_BASE_AM:,.0f}</h3></div>",
             unsafe_allow_html=True
         )
-      with col4:
+    with col4:
         st.markdown(
             f"<div class='card'><div class='metric'>PEP</div><h3>₹ {PEP}</h3></div>",
             unsafe_allow_html=True
