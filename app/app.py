@@ -36,24 +36,27 @@ st.title("🏦 KYC Risk Intelligence Dashboard")
 # -------------------------
 st.sidebar.header("🧾 Customer Input")
 
-AGE_YR_CT = st.sidebar.number_input("Age", 18, 100, 30)
-CUST_GNDR_CD = st.sidebar.selectbox("Gender", ["M", "F", "O"])
-CUST_TYPE_CD = st.sidebar.selectbox("Customer Type", ["IND", "CORP"])
+AGE_YR_CT = st.sidebar.number_input("**Age**", 18, 100, 30)
+CUST_GNDR_CD = st.sidebar.selectbox("**Gender**", ["M", "F", "O"])
+CUST_TYPE_CD = st.sidebar.selectbox("**Customer Type**", ["IND", "CORP"])
 
-PEP_FL = st.sidebar.selectbox("PEP Flag", ["Y", "N"])
-FRGN_ASSETS_FL = st.sidebar.selectbox("Foreign Assets", ["Y", "N"])
+PEP_FL = st.sidebar.selectbox("**PEP Flag**", ["Y", "N"])
+FRGN_ASSETS_FL = st.sidebar.selectbox("**Foreign Assets**", ["Y", "N"])
 
-ANNL_INCM_BASE_AM = st.sidebar.number_input("Annual Income", value=500000.0)
-NET_WRTH_BASE_AM = st.sidebar.number_input("Net Worth", value=1000000.0)
+ANNL_INCM_BASE_AM = st.sidebar.number_input("**Annual Income**", value=500000.0)
+NET_WRTH_BASE_AM = st.sidebar.number_input("**Net Worth**", value=1000000.0)
 CTZSHP_CNTRY1_CD = st.sidebar.selectbox(
-    "Citizenship Country 1",
+    "**Citizenship Country 1**",
     ["IN", "US", "UK", "AE", "SG"]
 )
-
-OCPTN_NM = st.sidebar.text_input("Occupation", "Engineer")
+CTZSHP_CNTRY1_CD = st.sidebar.selectbox(
+    "**Citizenship Country 2**",
+    ["IN", "US", "UK", "AE", "SG"]
+)
+OCPTN_NM = st.sidebar.text_input("**Occupation**", "Engineer")
 
 WLTH_SRC_DSCR_TX = st.sidebar.selectbox(
-    "Wealth Source",
+    "**Wealth Source**",
     ["Salary", "Business", "Investments", "Inheritance", "Other"]
 )
 
@@ -70,7 +73,7 @@ input_data = {
     "CUST_GNDR_CD": CUST_GNDR_CD,
     "CUST_TYPE_CD": CUST_TYPE_CD,
     "CTZSHP_CNTRY1_CD": CTZSHP_CNTRY1_CD,
-    "CTZSHP_CNTRY2_CD": "IN",
+    "CTZSHP_CNTRY2_CD": CTZSHP_CNTRY2_CD,
     "COUNTRY_OF_INC": "IN",
     "RES_CNTRY_CD": "IN",
     "PEP_FL": PEP_FL,
