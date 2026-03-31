@@ -6,6 +6,37 @@ from inference import predict
 # -------------------------
 st.set_page_config(page_title="KYC Risk Scoring", layout="wide")
 
+# -------------------------
+# CSS for clean spacing
+# -------------------------
+st.markdown("""
+<style>
+.block-container {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+div[data-testid="stVerticalBlock"] > div {
+    gap: 0.6rem;
+}
+
+h1, h2, h3 {
+    margin-bottom: 0.3rem;
+}
+
+.stTextInput, .stNumberInput, .stSelectbox {
+    margin-top: -8px;
+}
+
+section[data-testid="stHorizontalBlock"] {
+    gap: 1.5rem;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# -------------------------
+# Header
+# -------------------------
 st.title("🏦 KYC Risk Scoring System")
 st.markdown("**Enter customer details below**")
 
@@ -14,12 +45,12 @@ st.markdown("**Enter customer details below**")
 # -------------------------
 def label(text):
     st.markdown(
-        f"<span style='font-size:18px; font-weight:bold;'>{text}</span>",
+        f"<span style='font-size:17px; font-weight:600;'>{text}</span>",
         unsafe_allow_html=True
     )
 
 # -------------------------
-# Create 2 columns
+# Columns
 # -------------------------
 col1, col2 = st.columns(2)
 
