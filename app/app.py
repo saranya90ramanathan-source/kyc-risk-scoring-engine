@@ -115,7 +115,7 @@ if run:
         )
     with col4:
         st.markdown(
-            f"<div class='card'><div class='metric'>PEP</div><h3>₹ {PEP}</h3></div>",
+            f"<div class='card'><div class='metric'>PEP</div><h3>₹ {PEP_FL}</h3></div>",
             unsafe_allow_html=True
         )
 
