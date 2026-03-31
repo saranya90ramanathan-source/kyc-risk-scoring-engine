@@ -92,7 +92,7 @@ input_data = {
 if run:
 
     with st.spinner("🔍 Analyzing customer risk..."):
-        result = predict(input_data)
+        result, confidence = predict(input_data)
 
     # -------------------------
     # CARDS
@@ -127,12 +127,14 @@ if run:
     # -------------------------
     st.markdown("### 🔍 Risk Assessment")
 
+    confidence_pct = round(confidence * 100, 2)
+
     if result == "high":
-        st.error("🔴 High Risk Customer")
+        st.error(f"🔴 High Risk Customer (Confidence: {confidence_pct}%)")
     elif result == "medium":
-        st.warning("🟡 Medium Risk Customer")
+        st.warning(f"🟡 Medium Risk Customer (Confidence: {confidence_pct}%)")
     else:
-        st.success("🟢 Low Risk Customer")
+        st.success(f"🟢 Low Risk Customer (Confidence: {confidence_pct}%)")
 
     # -------------------------
     # CHARTS SIDE BY SIDE
