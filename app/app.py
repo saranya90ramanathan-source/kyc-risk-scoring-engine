@@ -80,7 +80,7 @@ input_data = {
     "LQD_NET_WRTH_BASE_AM": NET_WRTH_BASE_AM * 0.5,
     "OCPTN_NM": OCPTN_NM,
     "DPNDT_QT": 2,
-    "WLTH_SRC_DSCR_TX": WLTH_SRC_DSCR_T"
+    "WLTH_SRC_DSCR_TX": WLTH_SRC_DSCR_TX
 }
 
 # -------------------------
