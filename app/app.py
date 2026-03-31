@@ -1,154 +1,126 @@
 import streamlit as st
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import shap
 from inference import predict
 
 # -------------------------
 # Page config
 # -------------------------
-st.set_page_config(page_title="KYC Risk Scoring", layout="wide")
+st.set_page_config(page_title="KYC Risk Dashboard", layout="wide")
 
 # -------------------------
-# CSS for clean spacing
+# Custom CSS (cards)
 # -------------------------
 st.markdown("""
 <style>
-.block-container {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+.card {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
 }
-
-div[data-testid="stVerticalBlock"] > div {
-    gap: 0.6rem;
-}
-
-h1, h2, h3 {
-    margin-bottom: 0.3rem;
-}
-
-.stTextInput, .stNumberInput, .stSelectbox {
-    margin-top: -8px;
-}
-
-section[data-testid="stHorizontalBlock"] {
-    gap: 1.5rem;
+.metric {
+    font-size:18px;
+    font-weight:600;
 }
 </style>
 """, unsafe_allow_html=True)
 
 # -------------------------
-# Header
+# Title
 # -------------------------
-st.title("🏦 KYC Risk Scoring System")
-st.markdown("**Enter customer details below**")
+st.title("🏦 KYC Risk Intelligence Dashboard")
 
 # -------------------------
-# Label helper
+# SIDEBAR INPUTS
 # -------------------------
-def label(text):
-    st.markdown(
-        f"<span style='font-size:17px; font-weight:600;'>{text}</span>",
-        unsafe_allow_html=True
-    )
+st.sidebar.header("🧾 Customer Input")
+
+AGE_YR_CT = st.sidebar.number_input("Age", 18, 100, 30)
+CUST_GNDR_CD = st.sidebar.selectbox("Gender", ["M", "F", "O"])
+CUST_TYPE_CD = st.sidebar.selectbox("Customer Type", ["IND", "CORP"])
+
+PEP_FL = st.sidebar.selectbox("PEP Flag", ["Y", "N"])
+FRGN_ASSETS_FL = st.sidebar.selectbox("Foreign Assets", ["Y", "N"])
+
+ANNL_INCM_BASE_AM = st.sidebar.number_input("Annual Income", value=500000.0)
+NET_WRTH_BASE_AM = st.sidebar.number_input("Net Worth", value=1000000.0)
 
 # -------------------------
-# Columns
+# Static / default fields
 # -------------------------
-col1, col2 = st.columns(2)
+input_data = {
+    "AGE_YR_CT": AGE_YR_CT,
+    "CUST_GNDR_CD": CUST_GNDR_CD,
+    "CUST_TYPE_CD": CUST_TYPE_CD,
+    "CTZSHP_CNTRY1_CD": "IN",
+    "CTZSHP_CNTRY2_CD": "IN",
+    "COUNTRY_OF_INC": "IN",
+    "RES_CNTRY_CD": "IN",
+    "PEP_FL": PEP_FL,
+    "FRGN_ASSETS_FL": FRGN_ASSETS_FL,
+    "ANNL_INCM_BASE_AM": ANNL_INCM_BASE_AM,
+    "NET_WRTH_BASE_AM": NET_WRTH_BASE_AM,
+    "LQD_NET_WRTH_BASE_AM": NET_WRTH_BASE_AM * 0.5,
+    "OCPTN_NM": "Engineer",
+    "DPNDT_QT": 2,
+    "WLTH_SRC_DSCR_TX": "Salary"
+}
 
 # -------------------------
-# LEFT COLUMN
+# Prediction
 # -------------------------
+result = predict(input_data)
+
+# -------------------------
+# CARDS SECTION
+# -------------------------
+col1, col2, col3 = st.columns(3)
+
 with col1:
-    st.subheader("👤 Personal Details")
+    st.markdown(f"<div class='card'><div class='metric'>Age</div><h2>{AGE_YR_CT}</h2></div>", unsafe_allow_html=True)
 
-    label("Age")
-    AGE_YR_CT = st.number_input("", 18, 100, 30, key="age")
-
-    label("Gender")
-    CUST_GNDR_CD = st.selectbox("", ["M", "F", "O"], key="gender")
-
-    label("Customer Type")
-    CUST_TYPE_CD = st.selectbox("", ["IND", "CORP"], key="cust_type")
-
-    label("Citizenship Country 1")
-    CTZSHP_CNTRY1_CD = st.text_input("", "IN", key="citizenship1")
-
-    label("Country of Incorporation")
-    COUNTRY_OF_INC = st.text_input("", "IN", key="country_inc")
-
-    label("PEP Flag")
-    PEP_FL = st.selectbox("", ["Y", "N"], key="pep")
-
-    label("Occupation")
-    OCPTN_NM = st.text_input("", "Engineer", key="occupation")
-
-    label("Dependents")
-    DPNDT_QT = st.number_input("", value=2, key="dependents")
-
-
-# -------------------------
-# RIGHT COLUMN
-# -------------------------
 with col2:
-    st.subheader("💰 Financial & Risk Details")
+    st.markdown(f"<div class='card'><div class='metric'>Income</div><h2>₹ {ANNL_INCM_BASE_AM:,.0f}</h2></div>", unsafe_allow_html=True)
 
-    label("Citizenship Country 2")
-    CTZSHP_CNTRY2_CD = st.text_input("", "IN", key="citizenship2")
-
-    label("Residence Country")
-    RES_CNTRY_CD = st.text_input("", "IN", key="res_country")
-
-    label("Foreign Assets")
-    FRGN_ASSETS_FL = st.selectbox("", ["Y", "N"], key="foreign_assets")
-
-    label("Annual Income")
-    ANNL_INCM_BASE_AM = st.number_input("", value=500000.0, key="income")
-
-    label("Net Worth")
-    NET_WRTH_BASE_AM = st.number_input("", value=1000000.0, key="net_worth")
-
-    label("Liquid Net Worth")
-    LQD_NET_WRTH_BASE_AM = st.number_input("", value=500000.0, key="liquid_net_worth")
-
-    label("Wealth Source")
-    WLTH_SRC_DSCR_TX = st.text_input("", "Salary", key="wealth_source")
-
+with col3:
+    st.markdown(f"<div class='card'><div class='metric'>Net Worth</div><h2>₹ {NET_WRTH_BASE_AM:,.0f}</h2></div>", unsafe_allow_html=True)
 
 # -------------------------
-# Predict Button
+# RISK RESULT CARD
 # -------------------------
-st.markdown("---")
+st.markdown("### 🔍 Risk Assessment")
 
-if st.button("🚀 Predict Risk"):
+if result == "high":
+    st.error("🔴 High Risk Customer")
+elif result == "medium":
+    st.warning("🟡 Medium Risk Customer")
+else:
+    st.success("🟢 Low Risk Customer")
 
-    input_data = {
-        "AGE_YR_CT": AGE_YR_CT,
-        "CUST_GNDR_CD": CUST_GNDR_CD,
-        "CUST_TYPE_CD": CUST_TYPE_CD,
-        "CTZSHP_CNTRY1_CD": CTZSHP_CNTRY1_CD,
-        "CTZSHP_CNTRY2_CD": CTZSHP_CNTRY2_CD,
-        "COUNTRY_OF_INC": COUNTRY_OF_INC,
-        "RES_CNTRY_CD": RES_CNTRY_CD,
-        "PEP_FL": PEP_FL,
-        "FRGN_ASSETS_FL": FRGN_ASSETS_FL,
-        "ANNL_INCM_BASE_AM": ANNL_INCM_BASE_AM,
-        "NET_WRTH_BASE_AM": NET_WRTH_BASE_AM,
-        "LQD_NET_WRTH_BASE_AM": LQD_NET_WRTH_BASE_AM,
-        "OCPTN_NM": OCPTN_NM,
-        "DPNDT_QT": DPNDT_QT,
-        "WLTH_SRC_DSCR_TX": WLTH_SRC_DSCR_TX
-    }
+# -------------------------
+# CHARTS
+# -------------------------
+st.markdown("### 📊 Financial Overview")
 
-    try:
-        result = predict(input_data)
+fig, ax = plt.subplots()
+labels = ["Income", "Net Worth", "Liquid Net Worth"]
+values = [ANNL_INCM_BASE_AM, NET_WRTH_BASE_AM, NET_WRTH_BASE_AM * 0.5]
 
-        st.markdown("## 🔍 Risk Assessment Result")
+ax.bar(labels, values)
+st.pyplot(fig)
 
-        if result == "high":
-            st.error("🔴 High Risk Customer")
-        elif result == "medium":
-            st.warning("🟡 Medium Risk Customer")
-        else:
-            st.success("🟢 Low Risk Customer")
+# -------------------------
+# SHAP EXPLANATION (simple mock if not integrated)
+# -------------------------
+st.markdown("### 🧠 Model Explainability (Top Factors)")
 
-    except Exception as e:
-        st.error(f"Error: {e}")
+# Dummy feature importance (replace with real SHAP later)
+features = ["Income", "Net Worth", "PEP Flag", "Foreign Assets"]
+importance = np.random.rand(4)
+
+fig2, ax2 = plt.subplots()
+ax2.barh(features, importance)
+st.pyplot(fig2)
