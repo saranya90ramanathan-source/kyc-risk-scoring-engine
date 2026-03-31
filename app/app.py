@@ -131,40 +131,40 @@ if run:
     else:
         st.success("🟢 Low Risk Customer")
 
-# -------------------------
-# CHARTS SIDE BY SIDE
-# -------------------------
-st.markdown("### 📊 Insights")
-
-col1, col2 = st.columns(2)
-
-# -------------------------
-# LEFT: Financial Chart
-# -------------------------
-with col1:
-    st.markdown("#### Financial Overview")
-
-    fig, ax = plt.subplots(figsize=(4,4))
-    labels = ["Income", "Net Worth", "Liquid Net Worth"]
-    values = [ANNL_INCM_BASE_AM, NET_WRTH_BASE_AM, NET_WRTH_BASE_AM * 0.5]
-
-    ax.bar(labels, values)
-    ax.set_title("Financial Distribution")
-    ax.tick_params(axis='x', rotation=20)
-
-    st.pyplot(fig, use_container_width=False)
-
-# -------------------------
-# RIGHT: SHAP Chart
-# -------------------------
-with col2:
-    st.markdown("#### Model Explainability")
-
-    features = ["Income", "Net Worth", "PEP Flag", "Foreign Assets"]
-    importance = np.random.rand(4)
-
-    fig2, ax2 = plt.subplots(figsize=(4,4))
-    ax2.barh(features, importance)
-    ax2.set_title("Top Risk Factors")
-
-    st.pyplot(fig2, use_container_width=False)
+    # -------------------------
+    # CHARTS SIDE BY SIDE
+    # -------------------------
+    st.markdown("### 📊 Insights")
+    
+    col1, col2 = st.columns(2)
+    
+    # -------------------------
+    # LEFT: Financial Chart
+    # -------------------------
+    with col1:
+        st.markdown("#### Financial Overview")
+    
+        fig, ax = plt.subplots(figsize=(4,4))
+        labels = ["Income", "Net Worth", "Liquid Net Worth"]
+        values = [ANNL_INCM_BASE_AM, NET_WRTH_BASE_AM, NET_WRTH_BASE_AM * 0.5]
+    
+        ax.bar(labels, values)
+        ax.set_title("Financial Distribution")
+        ax.tick_params(axis='x', rotation=20)
+    
+        st.pyplot(fig, use_container_width=False)
+    
+    # -------------------------
+    # RIGHT: SHAP Chart
+    # -------------------------
+    with col2:
+        st.markdown("#### Model Explainability")
+    
+        features = ["Income", "Net Worth", "PEP Flag", "Foreign Assets"]
+        importance = np.random.rand(4)
+    
+        fig2, ax2 = plt.subplots(figsize=(4,4))
+        ax2.barh(features, importance)
+        ax2.set_title("Top Risk Factors")
+    
+        st.pyplot(fig2, use_container_width=False)
