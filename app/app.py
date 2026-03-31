@@ -137,7 +137,7 @@ if run:
 
     ax.bar(labels, values)
     ax.set_title("Financial Distribution")
-    st.pyplot(fig)
+    st.pyplot(fig, use_container_width=False)
 
     # -------------------------
     # SHAP (mock)
@@ -150,4 +150,4 @@ if run:
     fig2, ax2 = plt.subplots(figsize=(4, 4))
     ax2.barh(features, importance)
     ax2.set_title("Top Risk Factors")
-    st.pyplot(fig2)
+    st.pyplot(fig2, use_container_width=False)
