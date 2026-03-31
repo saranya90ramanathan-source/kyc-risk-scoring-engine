@@ -105,8 +105,11 @@ def predict(data: dict):
 
     # feature augmentation
     X_aug = np.hstack([X.values, X.values * attn_np, attn_np])
+  
 
-    pred = lgbm.predict(X_aug)
+    pred = np.argmax(proba, axis=1)
     label = label_encoder.inverse_transform(pred)
 
-    return label[0]
+    confidence = np.max(proba, axis=1)
+
+    return label[0], float(confidence[0])
