@@ -94,7 +94,7 @@ if run:
     # -------------------------
     # CARDS
     # -------------------------
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4 = st.columns(4)
 
     with col1:
         st.markdown(
@@ -111,6 +111,11 @@ if run:
     with col3:
         st.markdown(
             f"<div class='card'><div class='metric'>Net Worth</div><h3>₹ {NET_WRTH_BASE_AM:,.0f}</h3></div>",
+            unsafe_allow_html=True
+        )
+      with col4:
+        st.markdown(
+            f"<div class='card'><div class='metric'>PEP</div><h3>₹ {PEP}</h3></div>",
             unsafe_allow_html=True
         )
 
