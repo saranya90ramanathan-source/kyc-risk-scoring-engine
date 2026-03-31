@@ -131,7 +131,7 @@ if run:
     # -------------------------
     st.markdown("### 📊 Financial Overview")
 
-    fig, ax = plt.subplots(figsize=(4, 4))
+    fig, ax = plt.subplots(figsize=(3, 3))
     labels = ["Income", "Net Worth", "Liquid Net Worth"]
     values = [ANNL_INCM_BASE_AM, NET_WRTH_BASE_AM, NET_WRTH_BASE_AM * 0.5]
 
@@ -147,7 +147,7 @@ if run:
     features = ["Income", "Net Worth", "PEP Flag", "Foreign Assets"]
     importance = np.random.rand(4)
 
-    fig2, ax2 = plt.subplots(figsize=(4, 4))
+    fig2, ax2 = plt.subplots(figsize=(3, 3))
     ax2.barh(features, importance)
     ax2.set_title("Top Risk Factors")
     st.pyplot(fig2, use_container_width=False)
