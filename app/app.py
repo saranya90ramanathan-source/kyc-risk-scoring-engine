@@ -49,7 +49,7 @@ CTZSHP_CNTRY1_CD = st.sidebar.selectbox(
     "**Citizenship Country 1**",
     ["IN", "US", "UK", "AE", "SG"]
 )
-CTZSHP_CNTRY1_CD = st.sidebar.selectbox(
+CTZSHP_CNTRY2_CD = st.sidebar.selectbox(
     "**Citizenship Country 2**",
     ["IN", "US", "UK", "AE", "SG"]
 )
